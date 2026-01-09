@@ -1,0 +1,5 @@
+{
+  "name": "NexusOS Base Template",
+  "description": "A professional-grade React base template featuring a modular dashboard, account management, settings, notifications, and AI integration capabilities using Gemini.",
+  "requestFramePermissions": []
+}
