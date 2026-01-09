@@ -9,12 +9,18 @@ export const api = {
     await delay(1200);
     // Simulating validation
     if (email.includes('error')) throw new Error("Credenciais inválidas");
+    
+    // Role simulation based on email
+    let role: 'admin' | 'user' | 'manager' = 'user';
+    if (email.startsWith('admin')) role = 'admin';
+    else if (email.startsWith('manager')) role = 'manager';
+
     return {
       id: '1',
-      name: 'Alex Rivera',
+      name: role.charAt(0).toUpperCase() + role.slice(1) + ' Account',
       email: email,
-      role: 'admin',
-      avatar: 'https://picsum.photos/seed/alex/200',
+      role: role,
+      avatar: `https://picsum.photos/seed/${role}/200`,
       lastLogin: new Date().toISOString()
     };
   },

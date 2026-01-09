@@ -12,33 +12,31 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ user, unreadCount, toggleSidebar, setActiveTab }) => {
   const [profileOpen, setProfileOpen] = useState(false);
 
-  // Note: Logout logic would ideally come from a context or prop, 
-  // but we can simulate a reload or trigger a parent event here.
   const handleLogout = () => {
-    window.location.reload(); // Quick reset for simulation
+    window.location.reload(); 
   };
 
   return (
-    <header className="bg-white border-b border-slate-200 h-16 shrink-0 z-10 sticky top-0">
+    <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 h-16 shrink-0 z-10 sticky top-0 transition-colors duration-300">
       <div className="h-full px-4 md:px-8 flex items-center justify-between">
         <div className="flex items-center gap-4 flex-1">
           <button 
             onClick={toggleSidebar}
-            className="p-2 text-slate-500 hover:bg-slate-100 rounded-lg lg:hidden"
+            className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg lg:hidden transition-colors"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
           
-          <div className="hidden md:flex items-center bg-slate-100 rounded-full px-4 py-2 w-full max-w-md">
-            <svg className="w-4 h-4 text-slate-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="hidden md:flex items-center bg-slate-100 dark:bg-slate-800 rounded-full px-4 py-2 w-full max-w-md transition-colors">
+            <svg className="w-4 h-4 text-slate-400 dark:text-slate-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input 
               type="text" 
               placeholder="Pesquisar no sistema..." 
-              className="bg-transparent border-none focus:outline-none text-sm w-full text-slate-600"
+              className="bg-transparent border-none focus:outline-none text-sm w-full text-slate-600 dark:text-slate-300 placeholder:text-slate-400 dark:placeholder:text-slate-500"
             />
           </div>
         </div>
@@ -46,48 +44,48 @@ export const Navbar: React.FC<NavbarProps> = ({ user, unreadCount, toggleSidebar
         <div className="flex items-center gap-2 md:gap-4">
           <button 
             onClick={() => setActiveTab('notifications')}
-            className="p-2 text-slate-500 hover:bg-slate-100 rounded-full relative"
+            className="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full relative transition-colors"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
             </svg>
             {unreadCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-rose-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">
+              <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-rose-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white dark:border-slate-900">
                 {unreadCount}
               </span>
             )}
           </button>
 
-          <div className="w-px h-8 bg-slate-200 mx-2 hidden md:block"></div>
+          <div className="w-px h-8 bg-slate-200 dark:bg-slate-800 mx-2 hidden md:block"></div>
 
           <div className="relative">
             <button 
               onClick={() => setProfileOpen(!profileOpen)}
-              className="flex items-center gap-3 p-1 rounded-full hover:bg-slate-100 transition-colors"
+              className="flex items-center gap-3 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               <div className="hidden md:text-right">
-                <p className="text-sm font-semibold text-slate-700 leading-none">{user.name}</p>
-                <p className="text-xs text-slate-500 mt-1 capitalize">{user.role}</p>
+                <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 leading-none">{user.name}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 capitalize">{user.role}</p>
               </div>
               <img 
                 src={user.avatar} 
                 alt={user.name}
-                className="w-10 h-10 rounded-full border border-slate-200"
+                className="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700"
               />
             </button>
 
             {profileOpen && (
               <>
                 <div className="fixed inset-0 z-20" onClick={() => setProfileOpen(false)}></div>
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2 z-30">
-                  <div className="px-4 py-2 border-b border-slate-100 mb-1">
-                    <p className="text-sm font-bold text-slate-800">{user.name}</p>
-                    <p className="text-xs text-slate-500 truncate">{user.email}</p>
+                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 py-2 z-30 animate-in fade-in zoom-in-95 duration-200">
+                  <div className="px-4 py-2 border-b border-slate-100 dark:border-slate-700 mb-1">
+                    <p className="text-sm font-bold text-slate-800 dark:text-slate-200">{user.name}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user.email}</p>
                   </div>
-                  <button onClick={() => {setActiveTab('accounts'); setProfileOpen(false);}} className="w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Meu Perfil</button>
-                  <button onClick={() => {setActiveTab('settings'); setProfileOpen(false);}} className="w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Configurações</button>
-                  <div className="border-t border-slate-100 mt-1 pt-1">
-                    <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-rose-600 font-medium hover:bg-rose-50 transition-colors">Sair do Sistema</button>
+                  <button onClick={() => {setActiveTab('accounts'); setProfileOpen(false);}} className="w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">Meu Perfil</button>
+                  <button onClick={() => {setActiveTab('settings'); setProfileOpen(false);}} className="w-full text-left px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">Configurações</button>
+                  <div className="border-t border-slate-100 dark:border-slate-700 mt-1 pt-1">
+                    <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-rose-600 dark:text-rose-400 font-medium hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors">Sair do Sistema</button>
                   </div>
                 </div>
               </>

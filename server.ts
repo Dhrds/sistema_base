@@ -1,4 +1,5 @@
 
+
 /**
  * BACKEND TEMPLATE (Node.js + TypeScript + Express)
  * Copy this file to your backend project.
@@ -12,8 +13,10 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 // Use any to bypass potential type mismatches in the environment for cors middleware
-app.use(cors() as any);
-app.use(express.json());
+// Fix: Cast app to any to resolve the PathParams vs RequestHandler overload selection error for cors middleware
+(app as any).use(cors());
+// Fix: Cast app to any to resolve the PathParams vs RequestHandler overload selection error for express.json middleware
+(app as any).use(express.json());
 
 // Mock Database State
 let mockUser: User = {
