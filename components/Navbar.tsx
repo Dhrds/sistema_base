@@ -12,10 +12,15 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ user, unreadCount, toggleSidebar, setActiveTab }) => {
   const [profileOpen, setProfileOpen] = useState(false);
 
+  // Note: Logout logic would ideally come from a context or prop, 
+  // but we can simulate a reload or trigger a parent event here.
+  const handleLogout = () => {
+    window.location.reload(); // Quick reset for simulation
+  };
+
   return (
     <header className="bg-white border-b border-slate-200 h-16 shrink-0 z-10 sticky top-0">
       <div className="h-full px-4 md:px-8 flex items-center justify-between">
-        {/* Left: Search & Toggle */}
         <div className="flex items-center gap-4 flex-1">
           <button 
             onClick={toggleSidebar}
@@ -32,15 +37,13 @@ export const Navbar: React.FC<NavbarProps> = ({ user, unreadCount, toggleSidebar
             </svg>
             <input 
               type="text" 
-              placeholder="Search anything..." 
+              placeholder="Pesquisar no sistema..." 
               className="bg-transparent border-none focus:outline-none text-sm w-full text-slate-600"
             />
           </div>
         </div>
 
-        {/* Right: Actions */}
         <div className="flex items-center gap-2 md:gap-4">
-          {/* Notifications Trigger */}
           <button 
             onClick={() => setActiveTab('notifications')}
             className="p-2 text-slate-500 hover:bg-slate-100 rounded-full relative"
@@ -57,7 +60,6 @@ export const Navbar: React.FC<NavbarProps> = ({ user, unreadCount, toggleSidebar
 
           <div className="w-px h-8 bg-slate-200 mx-2 hidden md:block"></div>
 
-          {/* User Profile */}
           <div className="relative">
             <button 
               onClick={() => setProfileOpen(!profileOpen)}
@@ -82,10 +84,10 @@ export const Navbar: React.FC<NavbarProps> = ({ user, unreadCount, toggleSidebar
                     <p className="text-sm font-bold text-slate-800">{user.name}</p>
                     <p className="text-xs text-slate-500 truncate">{user.email}</p>
                   </div>
-                  <button onClick={() => {setActiveTab('accounts'); setProfileOpen(false);}} className="w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 transition-colors">My Profile</button>
-                  <button onClick={() => {setActiveTab('settings'); setProfileOpen(false);}} className="w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Settings</button>
+                  <button onClick={() => {setActiveTab('accounts'); setProfileOpen(false);}} className="w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Meu Perfil</button>
+                  <button onClick={() => {setActiveTab('settings'); setProfileOpen(false);}} className="w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 transition-colors">Configurações</button>
                   <div className="border-t border-slate-100 mt-1 pt-1">
-                    <button className="w-full text-left px-4 py-2 text-sm text-rose-600 font-medium hover:bg-rose-50 transition-colors">Log out</button>
+                    <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-rose-600 font-medium hover:bg-rose-50 transition-colors">Sair do Sistema</button>
                   </div>
                 </div>
               </>

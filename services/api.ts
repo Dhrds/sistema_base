@@ -1,16 +1,43 @@
 
 import { User, Notification, AppSettings } from '../types';
 
-// In a real app, this would be your backend URL (e.g., http://localhost:3001)
 const BASE_URL = '/api';
-
-// Simulation of network delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const api = {
+  async login(email: string, password: string): Promise<User> {
+    await delay(1200);
+    // Simulating validation
+    if (email.includes('error')) throw new Error("Credenciais inválidas");
+    return {
+      id: '1',
+      name: 'Alex Rivera',
+      email: email,
+      role: 'admin',
+      avatar: 'https://picsum.photos/seed/alex/200',
+      lastLogin: new Date().toISOString()
+    };
+  },
+
+  async register(data: any): Promise<User> {
+    await delay(1500);
+    return {
+      id: '2',
+      name: data.name,
+      email: data.email,
+      role: 'user',
+      avatar: `https://picsum.photos/seed/${data.name}/200`,
+      lastLogin: new Date().toISOString()
+    };
+  },
+
+  async resetPassword(email: string): Promise<boolean> {
+    await delay(1000);
+    return true;
+  },
+
   async getUser(): Promise<User> {
     await delay(800);
-    // In real app: return fetch(`${BASE_URL}/user`).then(res => res.json());
     return {
       id: '1',
       name: 'Alex Rivera',
